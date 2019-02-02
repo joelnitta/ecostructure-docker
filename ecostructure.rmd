@@ -52,63 +52,38 @@ The main contributions of the **ecostructure** package are:
 
 - Tools to process species level data using a phylogeny, a trait dataset, or a GIS dataset in order to examine the contribution of history, function, and geography to species level structure.
 
-The analytical framework provided by **ecostrucutre** is employed in our accompanying [paper](White et al. 2018). The paper focuses on a survey of bird species abundances, conducted by Trevor Price and Dhananjai Mohan, at 38 local sites across the all elevations in the eastern and western Himalaya. This data is also provided as part of the **ecostructure** package.
+The analytical framework provided by **ecostrucutre** is employed in our accompanying [paper](White et al. 2018). The paper focuses on a survey of bird species abundances, conducted by Trevor Price and Dhananjai Mohan, at 38 local sites across the all elevations in the eastern and western Himalaya. This data is also provided as part of the **ecostructure** package.  
 
 Next, we present an elaborate guided tutorial on how to use the **ecostructure**
 package.
 
 # Installation
 
-## System requirements
+This vignette uses a [Docker image](https://hub.docker.com/r/joelnitta/ecostructure/), so no manual installation of dependencies is needed.
 
-**ecostructure** requires core geospatial libraries supporting the use of
-GIS data in R - GDAL ($>= 2.0.1$), GEOS ($>= 3.4.0$), and PROJ.4 ($>= 4.8.0$).
-Typically these libraries get automatically installed as part of the dependency
-packages to **ecostructure**.
+To use the image, first [install Docker](https://docs.docker.com/install/).
 
-**ecostructure** requires access to the "gfortran" library. Mac OS X users may
-encounter the error "library not found for -lgfortran" when installing. To fix this
-error, please follow the instructions at this [link](https://thecoatlessprofessor.com/programming/rcpp-rcpparmadillo-and-os-x-mavericks--lgfortran-and--lquadmath-error/) to
+Pull the latest build:
 
-
-## R requirements
-
-**ecostructure** requires R version $>= 3.4.0$
-
-To install **ecostructure**, first, please load the Bioconductor dependencies.
-
-```{r echo=TRUE, eval=FALSE}
-source("https://bioconductor.org/biocLite.R")
-biocLite("Biobase")
-library(Biobase)
+```
+docker pull joelnitta/ecostructure
 ```
 
-```{r echo=TRUE, eval=FALSE}
-install.packages("devtools")
+Launch a container:
+
+```
+docker run -d -p 8787:8787 -e PASSWORD=clever_pw -e USER=rstudio joelnitta/ecostructure
 ```
 
-```{r echo=TRUE, eval=FALSE}
-devtools::install_github("kkdey/methClust");
-library(methClust)
+Open RStudio Server by navigating to http://localhost:8787/ in your web browser. Enter the username and password that you set in the `docker run` command.
 
-devtools::install_github("kkdey/CountClust")
-library(CountClust)
-
-devtools::install_github("TaddyLab/maptpx")
-library(maptpx)
-```
-
-Next, install **ecostructure**.
-
-```{r echo=TRUE, eval=FALSE}
-devtools::install_github("kkdey/ecostructure")
-```
-
-This will install **ecostructure** along with all its dependencies.
-
-Next, load the package into R.
+Now you should be able to load all the required libraries and run the example code.
 
 ```{r warning=FALSE, message=FALSE}
+library(Biobase)
+library(methClust)
+library(CountClust)
+library(maptpx)
 library(ecostructure)
 ```
 
@@ -192,7 +167,7 @@ The main components of the output from `ecos_fit` are:
 - `theta` : A species $\times$ K matrix, where the column sums equal 1. These values
           represent the contributions of each species to each motif k.
 
-### Vizualing motif contributions to sites
+### Vizualing motif contributions to sites     
 
 We can take the output from the model fit and visualize the motif
 contributions matrix `omega` using a stacked bar chart.
@@ -247,7 +222,7 @@ species across the globe or sub-regions of the globe.
 
 The matrix may represent be local data or macroecological data (species in a 1$^\circ$ $\times$ 1$^\circ$ map cell) - for functions to generate these data using GIS data sources (shapfiles or geodatabase files) see other sections below.
 
-We again use `ecos_fit` to fit Grade of Membership models on
+We again use `ecos_fit` to fit Grade of Membership models on  
 binary presence-absence data using a Binomial/Bernoulli model. We refer to the
 clusters/motifs obtained by this procedure as *species presence motifs*.
 
@@ -365,7 +340,7 @@ local_him_disp <- dsp_create_from_survey(local_data = species_counts,
             `local data`) at the resolution of the argument `precise`. These could be used for plotting high resolution
              dispersion fields.
 
-- `matrix` : A list of the same rasters is `raster` but in matrix form. These are used for easily processing the
+- `matrix` : A list of the same rasters is `raster` but in matrix form. These are used for easily processing the    
             dispersion fields into the structure required to fit a GoM model.
 
 ### Visualizing dispersion fields
