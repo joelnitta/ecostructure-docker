@@ -1,6 +1,6 @@
 # ecostructure-docker
 
-[Dockerfile](https://github.com/joelnitta/ecostructure-docker/blob/master/Dockerfile) and [image](https://hub.docker.com/r/joelnitta/ecostructure/) for running [ecostructure](https://github.com/kkdey/ecostructure).
+[Dockerfile](https://github.com/joelnitta/ecostructure/blob/master/Dockerfile) and [image](https://hub.docker.com/r/joelnitta/ecostructure/) for running [ecostructure](https://github.com/kkdey/ecostructure).
 
 ## Example Usage
 
@@ -16,4 +16,4 @@ Launch the container:
 docker run -d -p 8787:8787 -e PASSWORD=clever_pw -e USER=rstudio joelnitta/ecostructure
 ```
 
-For a more detailed example, see the [vignette](https://github.com/joelnitta/ecostructure-docker/blob/master/ecostructure.rmd).
+For a more detailed example, see the [vignette](https://github.com/joelnitta/ecostructure/blob/master/ecostructure.rmd).
